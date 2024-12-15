@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .signup-container h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-group button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <div class="error" id="usernameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#signupForm").submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+                
+                // Clear previous error messages
+                $(".error").text("");
+                
+                // Get input values
+                let username = $("#username").val().trim();
+                let email = $("#email").val().trim();
+                let password = $("#password").val().trim();
+                let isValid = true;
+
+                // Simple validation
+                if (username === "") {
+                    $("#usernameError").text("Username is required.");
+                    isValid = false;
+                }
+                if (email === "") {
+                    $("#emailError").text("Email is required.");
+                    isValid = false;
+                } else if (!/\S+@\S+\.\S+/.test(email)) {
+                    $("#emailError").text("Please enter a valid email.");
+                    isValid = false;
+                }
+                if (password === "") {
+                    $("#passwordError").text("Password is required.");
+                    isValid = false;
+                } else if (password.length < 6) {
+                    $("#passwordError").text("Password must be at least 6 characters long.");
+                    isValid = false;
+                }
+
+                // If valid, submit form (for demonstration, just alert success)
+                if (isValid) {
+                    alert("Sign up successful!");
+                    // Here you can add code to actually submit the form data to a server
+                }
+            });
+        });
+    </script>
+</body>
+</html>
